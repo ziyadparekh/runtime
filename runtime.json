@@ -1,0 +1,14 @@
+{
+  "Name": "bob",
+  "Url": "https://github.com/ziyadparekh/Bob.git",
+  "Email": "ziyad@1stdibs.com",
+  "Directory": "/var/www/",
+  "Language": "",
+  "Dependencies": [
+    "git",
+    "go",
+    "node",
+    "python",
+    "ruby"
+  ]
+}
