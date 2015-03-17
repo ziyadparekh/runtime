@@ -23,13 +23,13 @@ const (
 )
 
 const (
-	ROUTE_INDEX  = "/"
-	ROUTE_CREATE = "/create"
+	ROUTE_INDEX   = "/"
+	ROUTE_PAYLOAD = "/payload"
 )
 
 const (
-	NAME_INDEX  = "Index"
-	NAME_CREATE = "Create"
+	NAME_INDEX   = "Index"
+	NAME_PAYLOAD = "Payload"
 )
 
 var routes = Routes{
@@ -38,5 +38,11 @@ var routes = Routes{
 		METHOD_GET,
 		ROUTE_INDEX,
 		handlers.Index,
+	},
+	Route{
+		NAME_PAYLOAD,
+		METHOD_POST,
+		ROUTE_PAYLOAD,
+		handlers.Payload,
 	},
 }

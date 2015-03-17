@@ -25,6 +25,9 @@ func Logger(inner http.Handler, name string) http.Handler {
 	})
 }
 
+/*
+ * Exit disgracefully
+ */
 func Fatalf(msg string, args ...interface{}) {
 	if !strings.HasSuffix(msg, "\n") {
 		msg = msg + "\n"
