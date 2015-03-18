@@ -8,6 +8,7 @@ import (
 	"github.com/ziyadparekh/runtime/copy"
 	"github.com/ziyadparekh/runtime/filecontrol"
 	"github.com/ziyadparekh/runtime/logger"
+	"github.com/ziyadparekh/runtime/structs"
 )
 
 type Repository struct {
@@ -17,6 +18,40 @@ type Repository struct {
 	Directory    string   `json:directory`
 	Language     string   `json:language`
 	Dependencies []string `json:dependencies`
+}
+
+func HandleBranchHook(r *structs.Branch) error {
+	var repo *Repository
+	file, err := filecontrol.CheckAndReadFile(copy.Runtime)
+	if err != nil {
+		logger.Fatalf("%v", err)
+	}
+	if err := json.Unmarshal(file, &repo); err != nil {
+		logger.Fatalf("%v", err)
+	}
+
+	branch := r.Ref
+	path := repo.Directory + repo.Name + "/"
+	if r.Event == copy.DELETED {
+		if err := filecontrol.DeleteBranchDir(branch, path); err != nil {
+			logger.Fatalf("%v", err)
+		}
+	} else {
+		if err := filecontrol.CreateBranchDir(branch, path); err != nil {
+			logger.Fatalf("%v", err)
+		}
+	}
+	return nil
+
+	// TODO::
+	// Git clone repo#commit in dir
+	// Copy dir to /app dir
+	// Generate nginx file with port discovery
+	// Run docker container
+	// -------REVERSE---------
+	// Stop running docker container
+	// Remove container
+	// Delete /app & /git dir
 }
 
 func NewRuntime() []byte {

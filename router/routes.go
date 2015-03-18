@@ -23,13 +23,15 @@ const (
 )
 
 const (
-	ROUTE_INDEX   = "/"
-	ROUTE_PAYLOAD = "/payload"
+	ROUTE_INDEX  = "/"
+	ROUTE_PULL   = "/hooks/pullrequest"
+	ROUTE_BRANCH = "/hooks/branch"
 )
 
 const (
-	NAME_INDEX   = "Index"
-	NAME_PAYLOAD = "Payload"
+	NAME_INDEX  = "Index"
+	NAME_PULL   = "Pull Request"
+	NAME_BRANCH = "Branch"
 )
 
 var routes = Routes{
@@ -40,9 +42,15 @@ var routes = Routes{
 		handlers.Index,
 	},
 	Route{
-		NAME_PAYLOAD,
+		NAME_PULL,
 		METHOD_POST,
-		ROUTE_PAYLOAD,
-		handlers.Payload,
+		ROUTE_PULL,
+		handlers.PullRequestHook,
+	},
+	Route{
+		NAME_BRANCH,
+		METHOD_POST,
+		ROUTE_BRANCH,
+		handlers.BranchHook,
 	},
 }

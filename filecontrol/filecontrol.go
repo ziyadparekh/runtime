@@ -39,15 +39,52 @@ func CheckAndReadFile(name string) ([]byte, error) {
 	return f, nil
 }
 
+func CreateGenericDir(path string) error {
+	fmt.Println("====> Creating directory --> " + path)
+	if err := os.MkdirAll(path, 0777); err != nil {
+		return err
+	}
+	return nil
+}
+
 func CreateDirp(path, name string) error {
-	apppath := fmt.Sprintf("%s%s%s", copy.PATH_APPS, path, name)
-	gitpath := fmt.Sprintf("%s%s%s", copy.PATH_GIT, path, name)
+	apppath := fmt.Sprintf("%s%s%s%s", copy.PATH_APPS, path, name, copy.DEFAULT_BRANCH)
+	gitpath := fmt.Sprintf("%s%s%s%s", copy.PATH_GIT, path, name, copy.DEFAULT_BRANCH)
+
 	fmt.Println("====> Creating folders for app --> " + apppath)
-	if err := os.MkdirAll(apppath, 0777); err != nil {
+	if err := CreateGenericDir(apppath); err != nil {
 		return err
 	}
 	fmt.Println("====> Creating folders for git repo --> " + gitpath)
-	if err := os.MkdirAll(gitpath, 0777); err != nil {
+	if err := CreateGenericDir(gitpath); err != nil {
+		return err
+	}
+	return nil
+}
+
+func CreateBranchDir(branch, path string) error {
+	branchAppPath := fmt.Sprintf("%s%s%s", copy.PATH_APPS, path, branch)
+	branchGitPath := fmt.Sprintf("%s%s%s", copy.PATH_GIT, path, branch)
+	fmt.Println("====> Creating folders for app branch --> " + branchAppPath)
+	if err := CreateGenericDir(branchAppPath); err != nil {
+		return err
+	}
+	fmt.Println("====> Creating folders for git branch --> " + branchGitPath)
+	if err := CreateGenericDir(branchGitPath); err != nil {
+		return err
+	}
+	return nil
+}
+
+func DeleteBranchDir(branch, path string) error {
+	branchAppPath := fmt.Sprintf("%s%s%s", copy.PATH_APPS, path, branch)
+	branchGitPath := fmt.Sprintf("%s%s%s", copy.PATH_GIT, path, branch)
+	fmt.Println("====> Deleting folders for app branch --> " + branchAppPath)
+	if err := os.RemoveAll(branchAppPath); err != nil {
+		return err
+	}
+	fmt.Println("====> Deleting folders for git branch --> " + branchAppPath)
+	if err := os.RemoveAll(branchGitPath); err != nil {
 		return err
 	}
 	return nil

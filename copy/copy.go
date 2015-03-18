@@ -10,8 +10,14 @@ const (
 )
 
 const (
-	PATH_HOME = "/Users/ziyad"
-	PATH_APP  = "/golang/src/github.com/ziyadparekh/runtime"
-	PATH_APPS = PATH_HOME + PATH_APP + "/apps"
-	PATH_GIT  = PATH_HOME + PATH_APP + "/git"
+	DEFAULT_BRANCH = "/master"
+	PATH_HOME      = "/Users/ziyad"
+	PATH_APP       = "/golang/src/github.com/ziyadparekh/runtime"
+	PATH_APPS      = PATH_HOME + PATH_APP + "/apps"
+	PATH_GIT       = PATH_HOME + PATH_APP + "/git"
+)
+
+const (
+	DELETED = "delete"
+	CREATED = "create"
 )
